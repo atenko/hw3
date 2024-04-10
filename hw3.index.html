@@ -1,0 +1,49 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="stmarkdown.css">
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+</script>
+</head>
+<h1><a href="#how-to-embed-stata-results-in-html" id="how-to-embed-stata-results-in-html">How to embed Stata results in .html</a></h1>
+<h3><a href="#author-md-mph" id="author-md-mph">Author, MD MPH</a></h3>
+<p>A <u>user</u> initialized a dataset with 30 observations. Distribution of $${Age, years \sim Normal ; (\mu=57,\sigma^2=225)}$$</p>
+<pre><code>. *1. data simulation
+. set obs 30 //initialize your dataset with 30 observations usin the command
+
+. *2. variable generation
+. gen age=(rnormal()*15)+57 //normal distribution 
+
+. gen age_t=(rt(_N)*15)+57 //instead of normal distribution, t-distribution, _N means degrees of freedom
+
+. *3. Graphical representation
+. hist age, ///
+&gt;    fcolor(orange%40) /// simulated normal 
+&gt;    addplot(hist age_t, fcolor(midblue%50)) /// simulated t-distribution 
+&gt;    normal /// theoretical normal
+&gt;    legend(on ///
+&gt;       lab(1 &quot;Sampled from Normal&quot;) ///
+&gt;           lab(2 &quot;Theoretical Normal&quot;) ///
+&gt;           lab(3 &quot;Sampled from t-distribution&quot;) ///
+&gt;           )
+
+. graph export histogram_age_age_t.png, replace
+
+</code></pre>
+<p><img src="Graph1.svg" ></p>
+<pre><code>
+
+**Results:** 
+From the normal distribution, 
+results. There were  30 observations and 2 variables in the analyzed dataset. Average life expectancy of all countries, $\beta_0$, was  years. Difference in life expectancy among &lt;u&gt;adjacent&lt;/u&gt; countries, $\beta_1$, showed no trend or pattern and was  years, essentially $zero$, and $p$ = 
+
+**Conclusions:** 
+In walking you through syntax, do-file creation, queued commands, generated results, through to embedding neatly formatted output in
+.html, we believe you now have a sense of what that Stata might offer you. These ideas can be generalized to embedding results 
+in .xlsx, .log, .dta, .docx, etc. 
+
+
+
+</code></pre>
